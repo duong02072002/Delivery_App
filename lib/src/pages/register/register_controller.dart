@@ -56,18 +56,18 @@ class RegisterController extends GetxController {
         ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
 
         if (responseApi.success == true) {
-          GetStorage().write(
-              'user', responseApi.data); // DỮ LIỆU NGƯỜI DÙNG TRONG PHIÊN
+          GetStorage()
+              .write('user', responseApi.data); // DATOS DEL USUARIO EN SESION
           goToHomePage();
         } else {
-          Get.snackbar('Register Fall', responseApi.message ?? '');
+          Get.snackbar('Registro fallido', responseApi.message ?? '');
         }
       });
     }
   }
 
   void goToHomePage() {
-    Get.offNamedUntil('/home', (route) => false);
+    Get.offNamedUntil('/client/products/list', (route) => false);
   }
 
   bool isValidForm(String email, String name, String lastname, String phone,

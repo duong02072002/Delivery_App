@@ -1,0 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_delivery_app/src/pages/delivery/orders/list/delivery_orders_list_controller.dart';
+import 'package:get/get.dart';
+
+class DeliveryOrdersListPage extends StatelessWidget {
+  DeliveryOrdersListController con = Get.put(DeliveryOrdersListController());
+
+  DeliveryOrdersListPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Delivery Orders List'),
+      ),
+    );
+  }
+}

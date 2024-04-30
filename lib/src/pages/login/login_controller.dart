@@ -17,8 +17,12 @@ class LoginController extends GetxController {
     Get.toNamed('/register');
   }
 
-  void goToHomePage() {
-    Get.offNamedUntil('/home', (route) => false);
+  void goToClientProductPage() {
+    Get.offNamedUntil('/client/products/list', (route) => false);
+  }
+
+  void goToRolesPage() {
+    Get.offNamedUntil('/roles', (route) => false);
   }
 
   void login() async {
@@ -34,9 +38,17 @@ class LoginController extends GetxController {
       print('Response Api: ${responseApi.toJson()}');
 
       if (responseApi.success == true) {
-        GetStorage()
-            .write('user', responseApi.data); // DỮ LIỆU NGƯỜI DÙNG TRONG PHIÊN
-        goToHomePage();
+        GetStorage().write('user', responseApi.data); // Dữ liệu người dùng
+        User myUser = User.fromJson(GetStorage().read('user') ?? {});
+
+        print('Roles Length: ${myUser.roles!.length}');
+
+        if (myUser.roles!.length > 1) {
+          goToRolesPage();
+        } else {
+          // CHỈ CÓ MỘT VAI TRÒ
+          goToClientProductPage();
+        }
       } else {
         Get.snackbar('Login Fall', responseApi.message ?? '');
       }
