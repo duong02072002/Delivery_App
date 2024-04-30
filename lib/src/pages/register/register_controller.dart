@@ -1,7 +1,14 @@
+import 'dart:io';
+import 'dart:math';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_delivery_app/src/models/response_api.dart';
 import 'package:flutter_delivery_app/src/models/user.dart';
 import 'package:flutter_delivery_app/src/providers/users_provider.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class RegisterController extends GetxController {
   TextEditingController emailController = TextEditingController();
@@ -13,7 +20,10 @@ class RegisterController extends GetxController {
 
   UsersProvider usersProvider = UsersProvider();
 
-  void register() async {
+  ImagePicker picker = ImagePicker();
+  File? imageFile;
+
+  void register(BuildContext context) async {
     String email = emailController.text.trim();
     String name = nameController.text;
     String lastname = lastnameController.text;
@@ -25,6 +35,9 @@ class RegisterController extends GetxController {
     print('Password $password');
 
     if (isValidForm(email, name, lastname, phone, password, confirmPassword)) {
+      ProgressDialog progressDialog = ProgressDialog(context: context);
+      progressDialog.show(max: 100, msg: 'Recording Data ...');
+
       User user = User(
         email: email,
         name: name,
@@ -33,12 +46,28 @@ class RegisterController extends GetxController {
         password: password,
       );
 
-      Response response = await usersProvider.create(user);
+      // Response response = await usersProvider.create(user);
+      // print('RESPONSE: ${response.body}');
+      // Get.snackbar('Valid Form', 'Are you ready to send the HTTP request?');
+      Stream stream = await usersProvider.createWithImage(user, imageFile!);
+      stream.listen((res) {
+        progressDialog.close();
 
-      print('RESPONSE: ${response.body}');
+        ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
 
-      Get.snackbar('Valid Form', 'Are you ready to send the HTTP request?');
+        if (responseApi.success == true) {
+          GetStorage().write(
+              'user', responseApi.data); // DỮ LIỆU NGƯỜI DÙNG TRONG PHIÊN
+          goToHomePage();
+        } else {
+          Get.snackbar('Register Fall', responseApi.message ?? '');
+        }
+      });
     }
+  }
+
+  void goToHomePage() {
+    Get.offNamedUntil('/home', (route) => false);
   }
 
   bool isValidForm(String email, String name, String lastname, String phone,
@@ -82,7 +111,50 @@ class RegisterController extends GetxController {
       Get.snackbar('Invalid Form', 'Passwords Do Not Match');
       return false;
     }
-
+    if (imageFile == null) {
+      Get.snackbar('Invalid Form', 'You Must Select A Profile Image');
+      return false;
+    }
     return true;
+  }
+
+  Future selectImage(ImageSource imageSource) async {
+    XFile? image = await picker.pickImage(source: imageSource);
+    if (image != null) {
+      imageFile = File(image.path);
+      update();
+    }
+  }
+
+  void showAlertDialog(BuildContext context) {
+    Widget galleryButton = ElevatedButton(
+        onPressed: () {
+          Get.back();
+          selectImage(ImageSource.gallery);
+        },
+        child: const Text(
+          'GALLERY',
+          style: TextStyle(color: Colors.amber),
+        ));
+    Widget cameraButton = ElevatedButton(
+        onPressed: () {
+          Get.back();
+          selectImage(ImageSource.camera);
+        },
+        child: const Text(
+          'CAMERA',
+          style: TextStyle(color: Colors.amber),
+        ));
+
+    AlertDialog alertDialog = AlertDialog(
+      title: const Text('Select An Option'),
+      actions: [galleryButton, cameraButton],
+    );
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alertDialog;
+        });
   }
 }

@@ -16,7 +16,7 @@ class RegisterPage extends StatelessWidget {
           _boxForm(context),
           Column(
             children: [
-              _imageUser(),
+              _imageUser(context),
             ],
           ),
           _buttonBack(),
@@ -65,7 +65,7 @@ class RegisterPage extends StatelessWidget {
             _textFieldPhone(),
             _textFieldPassword(),
             _textFieldConfirmPassword(),
-            _buttonRegister(),
+            _buttonRegister(context),
           ],
         ),
       ),
@@ -176,12 +176,12 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _buttonRegister() {
+  Widget _buttonRegister(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: ElevatedButton(
-        onPressed: () => con.register(),
+        onPressed: () => con.register(context),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.amber,
           shape: RoundedRectangleBorder(
@@ -201,17 +201,23 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _imageUser() {
+  Widget _imageUser(BuildContext context) {
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.only(top: 25),
         alignment: Alignment.topCenter,
         child: GestureDetector(
-          onTap: () {},
-          child: const CircleAvatar(
-            backgroundImage: AssetImage('assets/img/user_profile.png'),
-            radius: 65,
-            backgroundColor: Colors.white,
+          onTap: () => con.showAlertDialog(context),
+          child: GetBuilder<RegisterController>(
+            builder: (value) => CircleAvatar(
+              backgroundImage: con.imageFile != null
+                  ? FileImage(con.imageFile!)
+                  : const AssetImage('assets/img/user_profile.png')
+                      as ImageProvider,
+              // SET STATE CTRL + S = GetBuilder<RegisterController>
+              radius: 60,
+              backgroundColor: Colors.white,
+            ),
           ),
         ),
       ),

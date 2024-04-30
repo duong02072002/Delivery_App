@@ -4,6 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Tôi cần quyền truy cập vào thư viện ảnh</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Tôi cần quyền truy cập vào máy ảnh // này thêm khi dùng ios</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Tôi cần quyền truy cập vào micrô của điện thoại di động</string>
 	<key>CFBundleDisplayName</key>
 	<string>Flutter Delivery App</string>
 	<key>CFBundleExecutable</key>
