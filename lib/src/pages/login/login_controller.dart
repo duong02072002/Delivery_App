@@ -17,8 +17,8 @@ class LoginController extends GetxController {
     Get.toNamed('/register');
   }
 
-  void goToClientProductPage() {
-    Get.offNamedUntil('/client/products/list', (route) => false);
+  void goToClientHomePage() {
+    Get.offNamedUntil('/client/home', (route) => false);
   }
 
   void goToRolesPage() {
@@ -47,7 +47,7 @@ class LoginController extends GetxController {
           goToRolesPage();
         } else {
           // CHỈ CÓ MỘT VAI TRÒ
-          goToClientProductPage();
+          goToClientHomePage();
         }
       } else {
         Get.snackbar('Login Fall', responseApi.message ?? '');

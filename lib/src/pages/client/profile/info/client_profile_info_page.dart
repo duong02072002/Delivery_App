@@ -115,7 +115,7 @@ class ClientProfileInfoPage extends StatelessWidget {
   Widget _imageUser(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 25),
+        margin: const EdgeInsets.only(top: 55),
         alignment: Alignment.topCenter,
         child: CircleAvatar(
           backgroundImage: con.user.value.image != null
