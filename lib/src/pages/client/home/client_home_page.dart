@@ -32,7 +32,7 @@ class ClientHomePage extends StatelessWidget {
   Widget _bottomBar() {
     return Obx(() => CustomAnimatedBottomBar(
           containerHeight: 58,
-          backgroundColor: Colors.amber, // Thay đổi màu sắc của bottom bar
+          backgroundColor: Colors.amber[400], // Thay đổi màu sắc của bottom bar
           showElevation: true,
           itemCornerRadius: 30, // Thay đổi hình dạng của bottom bar
           curve: Curves.easeIn,

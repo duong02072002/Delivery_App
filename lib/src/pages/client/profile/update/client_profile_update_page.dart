@@ -30,9 +30,9 @@ class ClientProfileUpdatePage extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.45,
-      decoration: BoxDecoration(
-        color: Colors.amber.shade500,
-        borderRadius: const BorderRadius.only(
+      decoration: const BoxDecoration(
+        color: Colors.amber,
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(33),
           bottomRight: Radius.circular(33),
         ),

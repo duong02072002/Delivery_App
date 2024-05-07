@@ -13,50 +13,50 @@ class ProductsProvider extends GetConnect {
 
   User userSession = User.fromJson(GetStorage().read('user') ?? {});
 
-  // Future<List<Product>> findByCategory(String idCategory) async {
-  //   Response response = await get(
-  //     '$url/findByCategory/$idCategory',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': userSession.sessionToken ?? ''
-  //     },
-  //   ); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
+  Future<List<Product>> findByCategory(String idCategory) async {
+    Response response = await get(
+      '$url/findByCategory/$idCategory',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userSession.sessionToken ?? ''
+      },
+    ); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
 
-  //   if (response.statusCode == 401) {
-  //     Get.snackbar(
-  //       'Request Denied',
-  //       'Your User Is Not Allowed To Read This Information',
-  //     );
-  //     return [];
-  //   }
+    if (response.statusCode == 401) {
+      Get.snackbar(
+        'Request Denied',
+        'Your User Is Not Allowed To Read This Information',
+      );
+      return [];
+    }
 
-  //   List<Product> products = Product.fromJsonList(response.body);
+    List<Product> products = Product.fromJsonList(response.body);
 
-  //   return products;
-  // }
+    return products;
+  }
 
-  // Future<List<Product>> findByNameAndCategory(
-  //     String idCategory, String name) async {
-  //   Response response = await get(
-  //     '$url/findByNameAndCategory/$idCategory/$name',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': userSession.sessionToken ?? ''
-  //     },
-  //   ); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
+  Future<List<Product>> findByNameAndCategory(
+      String idCategory, String name) async {
+    Response response = await get(
+      '$url/findByNameAndCategory/$idCategory/$name',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userSession.sessionToken ?? ''
+      },
+    ); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
 
-  //   if (response.statusCode == 401) {
-  //     Get.snackbar(
-  //       'Request Denied',
-  //       'Your User Is Not Allowed To Read This Information',
-  //     );
-  //     return [];
-  //   }
+    if (response.statusCode == 401) {
+      Get.snackbar(
+        'Request Denied',
+        'Your User Is Not Allowed To Read This Information',
+      );
+      return [];
+    }
 
-  //   List<Product> products = Product.fromJsonList(response.body);
+    List<Product> products = Product.fromJsonList(response.body);
 
-  //   return products;
-  // }
+    return products;
+  }
 
   Future<Stream> create(Product product, List<File> images) async {
     Uri uri = Uri.http(Environment.API_URL_OLD, '/api/products/create');
