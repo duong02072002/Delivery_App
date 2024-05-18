@@ -78,7 +78,7 @@ class ClientOrdersCreateController extends GetxController {
     }
   }
 
-  // void goToAddressList() {
-  //   Get.toNamed('/client/address/list');
-  // }
+  void goToAddressList() {
+    Get.toNamed('/client/address/list');
+  }
 }

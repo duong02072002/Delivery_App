@@ -113,8 +113,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
-                  //onPressed: () => con.goToAddressList(),
+                  onPressed: () => con.goToAddressList(),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(14),
                     backgroundColor: Colors.amber,

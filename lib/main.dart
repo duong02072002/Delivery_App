@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app/src/models/user.dart';
+import 'package:flutter_delivery_app/src/pages/client/address/create/client_address_create_page.dart';
+import 'package:flutter_delivery_app/src/pages/client/address/list/client_address_list_controller.dart';
+import 'package:flutter_delivery_app/src/pages/client/address/list/client_address_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/home/client_home_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/orders/create/client_orders_create_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/products/list/client_products_list_page.dart';
@@ -73,6 +76,11 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/client/orders/create',
             page: () => ClientOrdersCreatePage()),
+        GetPage(
+            name: '/client/address/create',
+            page: () => ClientAddressCreatePage()),
+        GetPage(
+            name: '/client/address/list', page: () => ClientAddressListPage()),
       ],
       theme: ThemeData(
         primaryColor: Colors.amber,
