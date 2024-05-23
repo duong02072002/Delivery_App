@@ -149,7 +149,7 @@ class ClientProfileUpdatePage extends StatelessWidget {
   Widget _imageUser(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 80),
+        margin: const EdgeInsets.only(top: 55),
         alignment: Alignment.topCenter,
         child: GestureDetector(
           onTap: () => con.showAlertDialog(context),
@@ -188,7 +188,7 @@ class ClientProfileUpdatePage extends StatelessWidget {
   Widget _buttonBack() {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(left: 15, top: 10),
+        margin: const EdgeInsets.only(left: 15),
         child: IconButton(
           onPressed: () => Get.back(),
           icon: const Icon(

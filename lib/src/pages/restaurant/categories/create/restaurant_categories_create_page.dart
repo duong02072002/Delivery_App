@@ -133,7 +133,7 @@ class RestaurantCategoriesCreatePage extends StatelessWidget {
   Widget _textNewCategory(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 50),
+        margin: const EdgeInsets.only(top: 10),
         alignment: Alignment.center,
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,

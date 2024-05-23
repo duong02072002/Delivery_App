@@ -77,7 +77,7 @@ class ClientProfileInfoPage extends StatelessWidget {
 
   Widget _buttonRoles() {
     return Container(
-      margin: const EdgeInsets.only(left: 15, top: 10),
+      margin: const EdgeInsets.only(left: 15),
       alignment: Alignment.topRight,
       child: IconButton(
         onPressed: () => con.goToRoles(),
@@ -93,7 +93,7 @@ class ClientProfileInfoPage extends StatelessWidget {
   Widget _buttonSignOut() {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(left: 15, top: 10),
+        margin: const EdgeInsets.only(left: 15),
         alignment: Alignment.topRight,
         child: IconButton(
           onPressed: () => con.signOut(),
@@ -135,7 +135,7 @@ class ClientProfileInfoPage extends StatelessWidget {
   Widget _imageUser(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 55),
+        margin: const EdgeInsets.only(top: 20),
         alignment: Alignment.topCenter,
         child: CircleAvatar(
           backgroundImage: con.user.value.image != null

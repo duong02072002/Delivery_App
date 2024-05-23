@@ -5,18 +5,19 @@ import '../../../../models/order.dart';
 import '../../../../models/user.dart';
 import '../../../../providers/orders_provider.dart';
 
-class DeliveryOrdersListController extends GetxController {
+class ClientOrdersListController extends GetxController {
   OrdersProvider ordersProvider = OrdersProvider();
-  List<String> status = <String>['DISPATCHED', 'ON THE WAY', 'DELIVERED'].obs;
+  List<String> status =
+      <String>['PAID', 'DISPATCHED', 'ON THE WAY', 'DELIVERED'].obs;
 
   User user = User.fromJson(GetStorage().read('user') ?? {});
 
   Future<List<Order>> getOrders(String status) async {
-    return await ordersProvider.findByDeliveryAndStatus(user.id ?? '0', status);
+    return await ordersProvider.findByClientAndStatus(user.id ?? '0', status);
   }
 
   void goToOrderDetail(Order order) {
-    Get.toNamed('/delivery/orders/detail', arguments: {
+    Get.toNamed('/client/orders/detail', arguments: {
       'order': order.toJson(),
     });
   }

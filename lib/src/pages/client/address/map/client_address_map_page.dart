@@ -11,12 +11,18 @@ class ClientAddressMapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.amber,
-            iconTheme: const IconThemeData(color: Colors.black),
-            title: const Text(
-              'Locate Your Address On The Map',
-              style: TextStyle(color: Colors.black),
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(42),
+            child: AppBar(
+              backgroundColor: Colors.amber,
+              iconTheme: const IconThemeData(color: Colors.black),
+              title: const Text(
+                'Locate Your Address',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           body: Stack(

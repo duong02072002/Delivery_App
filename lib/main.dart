@@ -5,18 +5,26 @@ import 'package:flutter_delivery_app/src/pages/client/address/list/client_addres
 import 'package:flutter_delivery_app/src/pages/client/address/list/client_address_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/home/client_home_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/orders/create/client_orders_create_page.dart';
+import 'package:flutter_delivery_app/src/pages/client/orders/detail/client_orders_detail_page.dart';
+import 'package:flutter_delivery_app/src/pages/client/orders/map/client_orders_map_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/profile/info/client_profile_info_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/profile/update/client_profile_update_page.dart';
+import 'package:flutter_delivery_app/src/pages/delivery/home/delivery_home_page.dart';
+import 'package:flutter_delivery_app/src/pages/delivery/orders/map/delivery_orders_map_page.dart';
+import 'package:flutter_delivery_app/src/pages/delivery/orders/detail/delivery_orders_detail_page.dart';
 import 'package:flutter_delivery_app/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/home/home_page.dart';
 import 'package:flutter_delivery_app/src/pages/login/login_page.dart';
 import 'package:flutter_delivery_app/src/pages/register/register_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/home/restaurant_home_page.dart';
+import 'package:flutter_delivery_app/src/pages/restaurant/orders/detail/restaurant_orders_detail_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/roles/roles_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
+import 'src/pages/client/payments/create/client_payments_create_page.dart';
 
 User userSession = User.fromJson(GetStorage().read('user') ?? {});
 
@@ -62,9 +70,18 @@ class _MyAppState extends State<MyApp> {
             name: '/restaurant/orders/list',
             page: () => RestaurantOrdersListPage()),
         GetPage(
+            name: '/restaurant/orders/detail',
+            page: () => RestaurantOrdersDetailPage()),
+        GetPage(
             name: '/delivery/orders/list',
             page: () => DeliveryOrdersListPage()),
         GetPage(name: '/client/home', page: () => ClientHomePage()),
+        GetPage(
+            name: '/delivery/orders/detail',
+            page: () => DeliveryOrdersDetailPage()),
+        GetPage(
+            name: '/delivery/orders/map', page: () => DeliveryOrdersMapPage()),
+        GetPage(name: '/delivery/home', page: () => DeliveryHomePage()),
         GetPage(
             name: '/client/products/list',
             page: () => ClientProductsListPage()),
@@ -77,10 +94,17 @@ class _MyAppState extends State<MyApp> {
             name: '/client/orders/create',
             page: () => ClientOrdersCreatePage()),
         GetPage(
+            name: '/client/orders/detail',
+            page: () => ClientOrdersDetailPage()),
+        GetPage(name: '/client/orders/map', page: () => ClientOrdersMapPage()),
+        GetPage(
             name: '/client/address/create',
             page: () => ClientAddressCreatePage()),
         GetPage(
             name: '/client/address/list', page: () => ClientAddressListPage()),
+        GetPage(
+            name: '/client/payments/create',
+            page: () => const ClientPaymentsCreatePage()),
       ],
       theme: ThemeData(
         primaryColor: Colors.amber,

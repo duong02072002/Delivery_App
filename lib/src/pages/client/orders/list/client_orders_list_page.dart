@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_delivery_app/src/pages/client/orders/list/client_orders_list_controller.dart';
 import 'package:flutter_delivery_app/src/pages/delivery/orders/list/delivery_orders_list_controller.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/orders/list/restaurant_orders_list_controller.dart';
 import 'package:get/get.dart';
@@ -7,11 +8,10 @@ import '../../../../models/order.dart';
 import '../../../../utils/relative_time_util.dart';
 import '../../../../widgets/no_data_widget.dart';
 
-class DeliveryOrdersListPage extends StatelessWidget {
-  final DeliveryOrdersListController con =
-      Get.put(DeliveryOrdersListController());
+class ClientOrdersListPage extends StatelessWidget {
+  final ClientOrdersListController con = Get.put(ClientOrdersListController());
 
-  DeliveryOrdersListPage({super.key});
+  ClientOrdersListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,7 @@ class DeliveryOrdersListPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      'Client: ${order.client?.name ?? ''} ${order.client?.lastname ?? ''}',
+                      'Delivery Man: ${order.delivery?.name ?? 'Not Assigned'} ${order.delivery?.lastname ?? ''}',
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,

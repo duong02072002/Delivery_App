@@ -46,6 +46,17 @@ class User {
               ),
       );
 
+  static List<User> fromJsonList(List<dynamic> jsonList) {
+    List<User> toList = [];
+
+    for (var item in jsonList) {
+      User users = User.fromJson(item);
+      toList.add(users);
+    }
+
+    return toList;
+  }
+
   Map<String, dynamic> toJson() => {
         "id": id,
         "email": email,

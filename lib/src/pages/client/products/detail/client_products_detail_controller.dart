@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -53,6 +55,7 @@ class ClientProductsDetailController extends GetxController {
       Fluttertoast.showToast(msg: 'Product Added');
 
       productsListController.items.value = 0;
+      //clientProductsListController.items.value = selectedProducts.length;
       for (var p in selectedProducts) {
         productsListController.items.value =
             productsListController.items.value + p.quantity!;

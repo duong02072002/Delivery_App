@@ -28,7 +28,7 @@ class ClientAddressCreatePage extends StatelessWidget {
   Widget _iconBack() {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(left: 15, top: 10),
+        margin: const EdgeInsets.only(left: 10),
         child: IconButton(
           onPressed: () => Get.back(),
           icon: const Icon(
@@ -169,7 +169,7 @@ class ClientAddressCreatePage extends StatelessWidget {
   Widget _textNewAddress(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 50),
+        margin: const EdgeInsets.only(top: 20),
         alignment: Alignment.center,
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,

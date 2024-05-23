@@ -8,8 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 
 class ClientAddressMapController extends GetxController {
-  CameraPosition initialPosition =
-      const CameraPosition(target: LatLng(9.779349, 105.6189045), zoom: 14);
+  CameraPosition initialPosition = const CameraPosition(
+      target: LatLng(9.6782775, 105.6658409), zoom: 14.4746);
 
   LatLng? addressLatLng;
   var addressName = ''.obs;

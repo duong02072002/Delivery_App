@@ -14,18 +14,29 @@ class ClientAddressListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _buttonNext(context),
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: const Text(
-          'My Addresses',
-          style: TextStyle(color: Colors.black),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(42),
+        child: AppBar(
+          backgroundColor: Colors.amber,
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: const Text(
+            'My Addresses',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            _iconAddressCreate(),
+          ],
         ),
-        actions: [_iconAddressCreate()],
       ),
       body: GetBuilder<ClientAddressListController>(
           builder: (value) => Stack(
-                children: [_textSelectAddress(), _listAddress(context)],
+                children: [
+                  _textSelectAddress(),
+                  _listAddress(context),
+                ],
               )),
     );
   }
@@ -34,10 +45,9 @@ class ClientAddressListPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 50,
-      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: ElevatedButton(
-          //onPressed: () => con.createOrder(),
-          onPressed: () {},
+          onPressed: () => con.createOrder(),
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.amber,
               padding: const EdgeInsets.symmetric(vertical: 15)),

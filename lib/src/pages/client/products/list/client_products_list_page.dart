@@ -18,10 +18,10 @@ class ClientProductsListPage extends StatelessWidget {
         length: con.categories.length,
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(110),
+            preferredSize: const Size.fromHeight(100),
             child: AppBar(
               flexibleSpace: Container(
-                margin: const EdgeInsets.only(top: 15),
+                //margin: const EdgeInsets.only(top: 15),
                 alignment: Alignment.topCenter,
                 child: Wrap(
                   direction: Axis.horizontal,
@@ -31,7 +31,7 @@ class ClientProductsListPage extends StatelessWidget {
                   ],
                 ),
               ),
-              backgroundColor: Colors.amber[600],
+              backgroundColor: Colors.amber[500],
               bottom: TabBar(
                 isScrollable: true,
                 indicatorColor: Colors.white,
@@ -63,7 +63,7 @@ class ClientProductsListPage extends StatelessWidget {
                             // padding: const EdgeInsets.symmetric(
                             //     horizontal: 10, vertical: 20),
                             padding: const EdgeInsets.only(
-                                top: 12, left: 8, right: 8),
+                                top: 12, left: 5, right: 5),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2, childAspectRatio: 0.75),
@@ -132,7 +132,7 @@ class ClientProductsListPage extends StatelessWidget {
   Widget _textFieldSearch(BuildContext context) {
     return SafeArea(
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.80,
+        width: MediaQuery.of(context).size.width * 0.84,
         height: 50,
         child: TextField(
           onChanged: con.onChangeText,

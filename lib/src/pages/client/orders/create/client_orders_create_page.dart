@@ -19,12 +19,18 @@ class ClientOrdersCreatePage extends StatelessWidget {
           height: 100,
           child: _totalToPay(context),
         ),
-        appBar: AppBar(
-          backgroundColor: Colors.amber[600],
-          iconTheme: const IconThemeData(color: Colors.black),
-          title: const Text(
-            'My Order',
-            style: TextStyle(color: Colors.black),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(42),
+          child: AppBar(
+            backgroundColor: Colors.amber[500],
+            iconTheme: const IconThemeData(color: Colors.black),
+            title: const Text(
+              'My Order',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         body: con.selectedProducts.isNotEmpty

@@ -33,7 +33,7 @@ class RestaurantProductsCreatePage extends StatelessWidget {
   Widget _backgroundCover(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.20,
+      height: MediaQuery.of(context).size.height * 0.25,
       decoration: BoxDecoration(
         color: Colors.amber.shade500,
         borderRadius: const BorderRadius.only(
@@ -308,17 +308,15 @@ class RestaurantProductsCreatePage extends StatelessWidget {
   }
 
   Widget _textNewCategory(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.only(top: 20),
-        alignment: Alignment.center,
-        child: const Text(
-          'NEW PRODUCT',
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+    return Container(
+      margin: const EdgeInsets.only(top: 48),
+      alignment: Alignment.center,
+      child: const Text(
+        'NEW PRODUCT',
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
       ),
     );

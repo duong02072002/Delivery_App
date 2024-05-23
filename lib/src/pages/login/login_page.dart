@@ -188,7 +188,7 @@ class LoginPage extends StatelessWidget {
   Widget _imageCover() {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.only(top: 20, bottom: 15),
+        //margin: const EdgeInsets.only(top: 10, bottom: 15),
         alignment: Alignment.center,
         child: Image.asset(
           'assets/img/delivery.png',

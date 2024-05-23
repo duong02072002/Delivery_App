@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_delivery_app/src/pages/client/products/detail/client_products_detail_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../../models/category.dart';
 import '../../../../models/product.dart';
 import '../../../../providers/categories_provider.dart';
 import '../../../../providers/products_provider.dart';
-import '../detail/client_products_detail_page.dart';
 
 class ClientProductsListController extends GetxController {
   CategoriesProvider categoriesProvider = CategoriesProvider();
-
   ProductsProvider productsProvider = ProductsProvider();
 
   List<Product> selectedProducts = [];
@@ -37,6 +37,7 @@ class ClientProductsListController extends GetxController {
       for (var p in selectedProducts) {
         items.value = items.value + (p.quantity!);
       }
+      //items.value = selectedProducts.length;
     }
   }
 
@@ -45,6 +46,7 @@ class ClientProductsListController extends GetxController {
     if (searchOnStoppedTyping != null) {
       searchOnStoppedTyping?.cancel();
     }
+
     searchOnStoppedTyping = Timer(duration, () {
       productName.value = text;
       print('COMPLETE TEXT: $text');
@@ -58,9 +60,7 @@ class ClientProductsListController extends GetxController {
   }
 
   Future<List<Product>> getProducts(
-    String idCategory,
-    String productName,
-  ) async {
+      String idCategory, String productName) async {
     if (productName.isEmpty) {
       return await productsProvider.findByCategory(idCategory);
     } else {
