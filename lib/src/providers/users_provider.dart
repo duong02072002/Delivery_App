@@ -69,6 +69,30 @@ class UsersProvider extends GetConnect {
     return responseApi;
   }
 
+  // Future<ResponseApi> updateNotificationToken(String id, String token) async {
+  //   Response response = await put('$url/updateNotificationToken', {
+  //     'id': id,
+  //     'token': token
+  //   }, headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': userSession.sessionToken ?? ''
+  //   }); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
+
+  //   if (response.body == null) {
+  //     Get.snackbar('Error', 'Could Not Update Information');
+  //     return ResponseApi();
+  //   }
+
+  //   if (response.statusCode == 401) {
+  //     Get.snackbar('Error', 'You Are Not Authorized To Make This Request');
+  //     return ResponseApi();
+  //   }
+
+  //   ResponseApi responseApi = ResponseApi.fromJson(response.body);
+
+  //   return responseApi;
+  // }
+
   Future<Stream> createWithImage(User user, File image) async {
     Uri uri = Uri.http(Environment.API_URL_OLD, '/api/users/createWithImage');
     final request = http.MultipartRequest('POST', uri);

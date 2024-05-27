@@ -73,10 +73,14 @@ class OrdersProvider extends GetConnect {
   }
 
   Future<ResponseApi> create(Order order) async {
-    Response response = await post('$url/create', order.toJson(), headers: {
-      'Content-Type': 'application/json',
-      'Authorization': userSession.sessionToken ?? ''
-    }); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
+    Response response = await post(
+      '$url/create',
+      order.toJson(),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userSession.sessionToken ?? ''
+      },
+    ); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
 
     ResponseApi responseApi = ResponseApi.fromJson(response.body);
 

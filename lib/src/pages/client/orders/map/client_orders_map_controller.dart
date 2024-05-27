@@ -186,6 +186,7 @@ class ClientOrdersMapController extends GetxController {
   void updateLocation() async {
     try {
       await _determinePosition();
+
       position = await Geolocator.getLastKnownPosition();
       print('Current position: $position');
       if (position != null) {

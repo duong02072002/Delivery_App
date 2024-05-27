@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app/src/models/order.dart';
 import 'package:flutter_delivery_app/src/models/product.dart';
 import 'package:flutter_delivery_app/src/models/response_api.dart';
+import 'package:flutter_delivery_app/src/pages/client/stripe/payment/client_stripe_payment.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,6 +17,7 @@ class ClientAddressListController extends GetxController {
   AddressProvider addressProvider = AddressProvider();
   OrdersProvider ordersProvider = OrdersProvider();
   User user = User.fromJson(GetStorage().read('user') ?? {});
+  ClientStripePayment stripePayment = ClientStripePayment();
 
   var radioValue = 0.obs;
 
@@ -37,35 +40,35 @@ class ClientAddressListController extends GetxController {
     return address;
   }
 
-  // void createOrder() async {
-  //   Get.toNamed('/client/payments/create');
+//  void createOrder() async {
+//     Address a = Address.fromJson(GetStorage().read('address') ?? {});
+//     List<Product> products = [];
 
-  // }
-  void createOrder() async {
-    Address a = Address.fromJson(GetStorage().read('address') ?? {});
-    List<Product> products = [];
+//     if (GetStorage().read("shopping_bag") is List<Product>) {
+//       products = GetStorage().read("shopping_bag");
+//     } else {
+//       products = Product.fromJsonList(GetStorage().read("shopping_bag"));
+//     }
 
-    if (GetStorage().read("shopping_bag") is List<Product>) {
-      products = GetStorage().read("shopping_bag");
-    } else {
-      products = Product.fromJsonList(GetStorage().read("shopping_bag"));
-    }
+//     Order order = Order(
+//       idClient: user.id,
+//       idAddress: a.id,
+//       products: products,
+//     );
+//     ResponseApi responseApi = await ordersProvider.create(order);
 
-    Order order = Order(
-      idClient: user.id,
-      idAddress: a.id,
-      products: products,
-    );
-    ResponseApi responseApi = await ordersProvider.create(order);
+//     Get.snackbar('finished process', responseApi.message ?? " ");
+//     Fluttertoast.showToast(
+//         msg: responseApi.message ?? "", toastLength: Toast.LENGTH_LONG);
 
-    Get.snackbar('finished process', responseApi.message ?? " ");
-    Fluttertoast.showToast(
-        msg: responseApi.message ?? "", toastLength: Toast.LENGTH_LONG);
+//     if (responseApi.success == true) {
+//       GetStorage().remove('shopping_bag');
+//       Get.toNamed('/client/payments/create');
+//     }
+//   }
 
-    if (responseApi.success == true) {
-      GetStorage().remove('shopping_bag');
-      Get.toNamed('/client/payments/create');
-    }
+  void createOrder(BuildContext context) async {
+    stripePayment.makePayment(context);
   }
 
   void handleRadioValueChange(int? value) {

@@ -21,15 +21,40 @@ import 'package:flutter_delivery_app/src/pages/restaurant/home/restaurant_home_p
 import 'package:flutter_delivery_app/src/pages/restaurant/orders/detail/restaurant_orders_detail_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/roles/roles_page.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'src/pages/client/payments/create/client_payments_create_page.dart';
 
 User userSession = User.fromJson(GetStorage().read('user') ?? {});
+// PushNotificationsProvider pushNotificationsProvider =
+//     PushNotificationsProvider();
+
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // If you're going to use other Firebase services in the background, such as Firestore,
+//   // make sure you call `initializeApp` before using other Firebase services.
+//   await Firebase.initializeApp(options: FirebaseConfig.currentPlatform);
+//   print('Receiving notification in the background ${message.messageId}');
+//   // pushNotificationsProvider.showNotification(message);
+// }
+
+// void main() async {
+//   await GetStorage.init();
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(
+//     options: FirebaseConfig.currentPlatform,
+//   );
+//   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+//   pushNotificationsProvider.initPushNotifications();
+//   runApp(const MyApp());
+// }
 
 void main() async {
   await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = '';
+  await Stripe.instance.applySettings();
   runApp(const MyApp());
 }
 
@@ -46,6 +71,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     print('The User session Token: ${userSession.sessionToken}');
+    //pushNotificationsProvider.onMessageListener();
   }
 
   @override
