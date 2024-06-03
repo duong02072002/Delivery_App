@@ -20,7 +20,7 @@ class RestaurantOrdersDetailPage extends StatelessWidget {
             color: const Color.fromRGBO(245, 245, 245, 1),
             height: con.order.status == 'PAID'
                 ? MediaQuery.of(context).size.height * 0.50
-                : MediaQuery.of(context).size.height * 0.45,
+                : MediaQuery.of(context).size.height * 0.44,
             //padding: const EdgeInsets.only(top: 5),
             child: Column(
               children: [
@@ -215,25 +215,22 @@ class RestaurantOrdersDetailPage extends StatelessWidget {
     return Column(
       children: [
         Divider(height: 1, color: Colors.grey[400]),
-        con.order.status == 'PAID'
-            ? Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(horizontal: 36, vertical: 7),
-                //margin: const EdgeInsets.only(top: 4, left: 40, right: 40),
-                child: Text(
-                  'ASSIGN DELIVERY MAN',
-                  style: TextStyle(
-                    color: Colors.amber[700],
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              )
-            : Container(),
-        con.order.status == 'PAID'
-            ? _dropDownDeliveryMen(con.users)
-            : Container(),
+        if (con.order.status == 'PAID') ...[
+          Container(
+            width: double.infinity,
+            alignment: Alignment.center,
+            margin: const EdgeInsets.symmetric(horizontal: 36, vertical: 7),
+            child: Text(
+              'ASSIGN DELIVERY MAN',
+              style: TextStyle(
+                color: Colors.amber[700],
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ),
+          _dropDownDeliveryMen(con.users),
+        ],
         Container(
           margin: EdgeInsets.only(
               left: con.order.status == 'PAID' ? 20 : 37, top: 15),
@@ -247,31 +244,30 @@ class RestaurantOrdersDetailPage extends StatelessWidget {
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
-              con.order.status == 'PAID'
-                  ? Container(
-                      //margin: const EdgeInsets.symmetric(horizontal: 35),
-                      margin: const EdgeInsets.only(left: 20, right: 20),
-                      child: ElevatedButton(
-                          onPressed: () => con.updateOrder(),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.amber,
-                            padding: const EdgeInsets.only(
-                                top: 4, left: 50, right: 50),
-                          ),
-                          child: const Text(
-                            'SEND ORDER',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'NimbusSans',
-                              fontSize: 18,
-                            ),
-                          )),
-                    )
-                  : Container()
+              if (con.order.status == 'PAID')
+                Container(
+                  margin: const EdgeInsets.only(left: 20),
+                  child: ElevatedButton(
+                    onPressed: () => con.updateOrder(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.amber,
+                      padding: const EdgeInsets.fromLTRB(
+                          45, 15, 45, 10), // Adjusted padding
+                    ),
+                    child: const Text(
+                      'SEND ORDER',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'NimbusSans',
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

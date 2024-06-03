@@ -17,7 +17,7 @@ class ClientOrdersDetailPage extends StatelessWidget {
           bottomNavigationBar: Container(
             color: const Color.fromRGBO(245, 245, 245, 1),
             height: con.order.status == 'ON THE WAY'
-                ? MediaQuery.of(context).size.height * 0.37
+                ? MediaQuery.of(context).size.height * 0.38
                 : MediaQuery.of(context).size.height * 0.35,
             //padding: const EdgeInsets.only(top: 5),
             child: Column(
@@ -212,22 +212,26 @@ class ClientOrdersDetailPage extends StatelessWidget {
   Widget _buttonGoToOrderMap() {
     return Container(
       // margin: const EdgeInsets.symmetric(horizontal: 20),
-      margin: const EdgeInsets.only(left: 10, right: 10),
-      child: ElevatedButton(
-          onPressed: () => con.goToOrderMap(),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.amber,
-            padding: const EdgeInsets.only(top: 4, left: 20, right: 20),
-          ),
-          child: const Text(
-            'FOLLOW DELIVERY',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'NimbusSans',
-              fontSize: 18,
+      margin: const EdgeInsets.only(left: 40),
+      child: SizedBox(
+        width: 180,
+        height: 50,
+        child: ElevatedButton(
+            onPressed: () => con.goToOrderMap(),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.amber,
+              padding: const EdgeInsets.only(top: 1.5, left: 20, right: 20),
             ),
-          )),
+            child: const Text(
+              'FOLLOW DELIVERY',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'NimbusSans',
+                fontSize: 16,
+              ),
+            )),
+      ),
     );
   }
 }

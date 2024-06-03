@@ -109,6 +109,23 @@ class UsersProvider extends GetConnect {
     return response.stream.transform(utf8.decoder);
   }
 
+  Future<Stream> createDriverWithImage(User user, File image) async {
+    Uri uri =
+        Uri.http(Environment.API_URL_OLD, '/api/users/createDriverWithImage');
+    final request = http.MultipartRequest('POST', uri);
+    request.files.add(
+      http.MultipartFile(
+        'image',
+        http.ByteStream(image.openRead().cast()),
+        await image.length(),
+        filename: basename(image.path),
+      ),
+    );
+    request.fields['user'] = json.encode(user);
+    final response = await request.send();
+    return response.stream.transform(utf8.decoder);
+  }
+
   Future<Stream> updateWithImage(User user, File image) async {
     Uri uri = Uri.http(Environment.API_URL_OLD, '/api/users/update');
     final request = http.MultipartRequest('PUT', uri);
@@ -133,6 +150,21 @@ class UsersProvider extends GetConnect {
       'user': json.encode(user)
     });
     Response response = await post('$url/createWithImage', form);
+
+    if (response.body == null) {
+      Get.snackbar('Error In The Request', 'Could Not Create User');
+      return ResponseApi();
+    }
+    ResponseApi responseApi = ResponseApi.fromJson(response.body);
+    return responseApi;
+  }
+
+  Future<ResponseApi> createDriverWithImageGetX(User user, File image) async {
+    FormData form = FormData({
+      'image': MultipartFile(image, filename: basename(image.path)),
+      'user': json.encode(user)
+    });
+    Response response = await post('$url/createDriverWithImage', form);
 
     if (response.body == null) {
       Get.snackbar('Error In The Request', 'Could Not Create User');

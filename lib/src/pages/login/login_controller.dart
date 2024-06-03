@@ -21,6 +21,10 @@ class LoginController extends GetxController {
     Get.offNamedUntil('/client/home', (route) => false);
   }
 
+  void goToDeliveryPage() {
+    Get.offNamedUntil('/delivery/home', (route) => false);
+  }
+
   void goToRolesPage() {
     Get.offNamedUntil('/roles', (route) => false);
   }
@@ -43,11 +47,21 @@ class LoginController extends GetxController {
 
         print('Roles Length: ${myUser.roles!.length}');
 
-        if (myUser.roles!.length > 1) {
-          goToRolesPage();
-        } else {
-          // CHỈ CÓ MỘT VAI TRÒ
+        // if (myUser.roles!.length > 1) {
+        //   goToRolesPage();
+        // } else {
+        //   // CHỈ CÓ MỘT VAI TRÒ
+        //   goToClientHomePage();
+        // }
+        if (myUser.roles!.contains(3)) {
+          // Nếu vai trò là 3, điều hướng đến trang home của client
           goToClientHomePage();
+        } else if (myUser.roles!.contains(2)) {
+          // Nếu vai trò là 2, điều hướng đến trang delivery
+          goToDeliveryPage();
+        } else {
+          // Nếu vai trò là 1 hoặc bất kỳ vai trò nào khác, điều hướng đến trang roles
+          goToRolesPage();
         }
       } else {
         Get.snackbar('Login Fall', responseApi.message ?? '');

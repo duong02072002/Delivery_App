@@ -19,7 +19,10 @@ class DeliveryOrdersDetailPage extends StatelessWidget {
     return Obx(() => Scaffold(
           bottomNavigationBar: Container(
             color: const Color.fromRGBO(245, 245, 245, 1),
-            height: MediaQuery.of(context).size.height * 0.38,
+            // height: MediaQuery.of(context).size.height * 0.38,
+            height: con.order.status == 'DELIVERED'
+                ? MediaQuery.of(context).size.height * 0.35
+                : MediaQuery.of(context).size.height * 0.38,
             //padding: const EdgeInsets.only(top: 5),
             child: Column(
               children: [
@@ -214,37 +217,51 @@ class DeliveryOrdersDetailPage extends StatelessWidget {
 
   Widget _buttonUpdateOrder() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 30),
-      child: ElevatedButton(
-          onPressed: () => con.updateOrder(),
-          style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.all(15), backgroundColor: Colors.cyan),
-          child: const Text(
-            'START DELIVERY',
-            style: TextStyle(color: Colors.white),
-          )),
+      margin: const EdgeInsets.only(left: 40),
+      child: SizedBox(
+        width: 180,
+        height: 50,
+        child: ElevatedButton(
+            onPressed: () => con.updateOrder(),
+            style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(15),
+                backgroundColor: Colors.cyan),
+            child: const Text(
+              'START DELIVERY',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                fontFamily: 'NimbusSans',
+              ),
+            )),
+      ),
     );
   }
 
   Widget _buttonGoToOrderMap() {
     return Container(
       // margin: const EdgeInsets.symmetric(horizontal: 20),
-      margin: const EdgeInsets.only(left: 10, right: 10),
-      child: ElevatedButton(
-          onPressed: () => con.goToOrderMap(),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.lightGreenAccent,
-            padding: const EdgeInsets.only(top: 4, left: 20, right: 20),
-          ),
-          child: const Text(
-            'RETURN TO MAP',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'NimbusSans',
-              fontSize: 18,
+      margin: const EdgeInsets.only(left: 40),
+      child: SizedBox(
+        width: 180,
+        height: 50,
+        child: ElevatedButton(
+            onPressed: () => con.goToOrderMap(),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.lightGreenAccent,
+              padding: const EdgeInsets.only(top: 1.5, left: 20, right: 20),
             ),
-          )),
+            child: const Text(
+              'RETURN TO MAP',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'NimbusSans',
+                fontSize: 17,
+              ),
+            )),
+      ),
     );
   }
 }

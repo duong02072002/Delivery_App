@@ -144,18 +144,25 @@ class ClientProductsDetailPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => con.addToBag(product!, price, counter),
                 style: ElevatedButton.styleFrom(
-                  // shape: RoundedRectangleBorder(
-                  //   borderRadius: BorderRadius.circular(40),
-                  // ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   minimumSize: const Size(45, 55),
                   backgroundColor: Colors.amber,
                 ),
-                child: Text(
-                  'Add To Cart  \$${price.value}',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                child: SizedBox(
+                  width: 160, // Chiều rộng tùy chỉnh
+                  height: 50, // Chiều cao tùy chỉnh
+                  child: Center(
+                    child: Text(
+                      'Add To Cart  \$${price.value}',
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'NimbusSans',
+                      ),
+                    ),
                   ),
                 ),
               ),

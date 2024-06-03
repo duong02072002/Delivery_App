@@ -101,7 +101,8 @@ class ClientStripePayment {
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
         body: body,
         headers: {
-          'Authorization': 'Bearer ',
+          'Authorization':
+              'Bearer sk_test_51PL3MAHh3zSP7bha8S2OaC9ylSC2RXoKF0VWuCmYL5Rgp96PJGtlnNqQZK4q0Ydy8TIfKsD5z7UTDfOiSdGu9jdd00xYfgF9ub',
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       );

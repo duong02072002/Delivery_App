@@ -11,16 +11,20 @@ class RolesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Select The Role',
-          style: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.bold,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(35),
+        child: AppBar(
+          title: const Text(
+            'Select The Role',
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'NimbusSans',
+            ),
           ),
+          backgroundColor:
+              Colors.amber.shade400, // Đổi màu nền của AppBar thành màu vàng
         ),
-        backgroundColor:
-            Colors.amber.shade400, // Đổi màu nền của AppBar thành màu vàng
       ),
       body: Container(
         margin: EdgeInsets.symmetric(

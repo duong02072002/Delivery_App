@@ -17,6 +17,7 @@ import 'package:flutter_delivery_app/src/pages/delivery/orders/list/delivery_ord
 import 'package:flutter_delivery_app/src/pages/home/home_page.dart';
 import 'package:flutter_delivery_app/src/pages/login/login_page.dart';
 import 'package:flutter_delivery_app/src/pages/register/register_page.dart';
+import 'package:flutter_delivery_app/src/pages/restaurant/drivers/create/restaurant_drivers_create_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/home/restaurant_home_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/orders/detail/restaurant_orders_detail_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
@@ -53,7 +54,8 @@ User userSession = User.fromJson(GetStorage().read('user') ?? {});
 void main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  Stripe.publishableKey = '';
+  Stripe.publishableKey =
+      'pk_test_51PL3MAHh3zSP7bhawCnn9W77Xyp20ns3Q2XUG8SobIXjgzP15LqTAoh6N530jC6Byd49gZYkyUDdPbxJ5Vr2Ci7000wiPjwXvC';
   await Stripe.instance.applySettings();
   runApp(const MyApp());
 }
@@ -92,6 +94,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/roles', page: () => RolesPage()),
         GetPage(name: '/restaurant/home', page: () => RestaurantHomePage()),
+        GetPage(
+            name: '/restaurant/drivers/create',
+            page: () => RestaurantDriversCreatePage()),
         GetPage(
             name: '/restaurant/orders/list',
             page: () => RestaurantOrdersListPage()),

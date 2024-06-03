@@ -99,7 +99,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
           endIndent: 1,
         ),
         Container(
-          margin: const EdgeInsets.only(left: 15, top: 5),
+          margin: const EdgeInsets.only(left: 28, top: 3),
           child: Row(
             mainAxisAlignment:
                 MainAxisAlignment.spaceBetween, // Sắp xếp phần tử ở hai đầu
@@ -112,7 +112,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 5),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 40),
           child: Row(
