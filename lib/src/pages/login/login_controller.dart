@@ -47,21 +47,13 @@ class LoginController extends GetxController {
 
         print('Roles Length: ${myUser.roles!.length}');
 
-        // if (myUser.roles!.length > 1) {
-        //   goToRolesPage();
-        // } else {
-        //   // CHỈ CÓ MỘT VAI TRÒ
-        //   goToClientHomePage();
-        // }
-        if (myUser.roles!.contains(3)) {
-          // Nếu vai trò là 3, điều hướng đến trang home của client
-          goToClientHomePage();
-        } else if (myUser.roles!.contains(2)) {
-          // Nếu vai trò là 2, điều hướng đến trang delivery
+        if (myUser.roles!.length > 1) {
+          goToRolesPage();
+        } else if (myUser.roles!.length > 2) {
           goToDeliveryPage();
         } else {
-          // Nếu vai trò là 1 hoặc bất kỳ vai trò nào khác, điều hướng đến trang roles
-          goToRolesPage();
+          // CHỈ CÓ MỘT VAI TRÒ
+          goToClientHomePage();
         }
       } else {
         Get.snackbar('Login Fall', responseApi.message ?? '');
