@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app/src/models/user.dart';
 import 'package:flutter_delivery_app/src/pages/client/address/create/client_address_create_page.dart';
-import 'package:flutter_delivery_app/src/pages/client/address/list/client_address_list_controller.dart';
 import 'package:flutter_delivery_app/src/pages/client/address/list/client_address_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/home/client_home_page.dart';
 import 'package:flutter_delivery_app/src/pages/client/orders/create/client_orders_create_page.dart';
@@ -17,10 +16,13 @@ import 'package:flutter_delivery_app/src/pages/delivery/orders/list/delivery_ord
 import 'package:flutter_delivery_app/src/pages/home/home_page.dart';
 import 'package:flutter_delivery_app/src/pages/login/login_page.dart';
 import 'package:flutter_delivery_app/src/pages/register/register_page.dart';
+import 'package:flutter_delivery_app/src/pages/restaurant/categories/create/restaurant_categories_create_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/drivers/create/restaurant_drivers_create_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/home/restaurant_home_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/orders/detail/restaurant_orders_detail_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
+import 'package:flutter_delivery_app/src/pages/restaurant/products/create/restaurant_products_create_page.dart';
+import 'package:flutter_delivery_app/src/pages/restaurant/products/list/restaurant_products_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/roles/roles_page.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -97,6 +99,15 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/restaurant/drivers/create',
             page: () => RestaurantDriversCreatePage()),
+        GetPage(
+            name: '/restaurant/products/list',
+            page: () => RestaurantProductsListPage()),
+        GetPage(
+            name: '/restaurant/products/create',
+            page: () => RestaurantProductsCreatePage()),
+        GetPage(
+            name: '/restaurant/categories/create',
+            page: () => RestaurantCategoriesCreatePage()),
         GetPage(
             name: '/restaurant/orders/list',
             page: () => RestaurantOrdersListPage()),

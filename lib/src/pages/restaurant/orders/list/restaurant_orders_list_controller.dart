@@ -12,8 +12,12 @@ class RestaurantOrdersListController extends GetxController {
     return await ordersProvider.findByStatus(status);
   }
 
-  void goToOrderDetail(Order order) {
-    Get.toNamed('/restaurant/orders/detail',
+  // void goToOrderDetail(Order order) {
+  //   Get.toNamed('/restaurant/orders/detail',
+  //       arguments: {'order': order.toJson()});
+  // }
+  void goToOrderDetail(Order order) async {
+    await Get.toNamed('/restaurant/orders/detail',
         arguments: {'order': order.toJson()});
   }
 }

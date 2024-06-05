@@ -31,7 +31,7 @@ class RestaurantOrdersDetailController extends GetxController {
       Fluttertoast.showToast(
           msg: responseApi.message ?? '', toastLength: Toast.LENGTH_LONG);
       if (responseApi.success == true) {
-        Get.offNamedUntil('/restaurant/home', (route) => false);
+        await Get.offNamedUntil('/restaurant/home', (route) => false);
       }
     } else {
       Get.snackbar('Request Denied', 'You Must Assign The Delivery Person');

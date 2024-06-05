@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app/src/pages/client/profile/info/client_profile_info_page.dart';
 import 'package:flutter_delivery_app/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/categories/create/restaurant_categories_create_page.dart';
+import 'package:flutter_delivery_app/src/pages/restaurant/categories/list/restaurant_categories_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/drivers/create/restaurant_drivers_create_page.dart';
+import 'package:flutter_delivery_app/src/pages/restaurant/drivers/list/restaurant_drivers_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/home/restaurant_home_controller.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/products/create/restaurant_products_create_page.dart';
+import 'package:flutter_delivery_app/src/pages/restaurant/products/list/restaurant_products_list_page.dart';
 import 'package:flutter_delivery_app/src/utils/custom_animated_bottom_bar.dart';
 import 'package:get/get.dart';
 
@@ -23,9 +26,12 @@ class RestaurantHomePage extends StatelessWidget {
           index: con.indexTab.value,
           children: [
             RestaurantOrdersListPage(),
-            RestaurantCategoriesCreatePage(),
-            RestaurantProductsCreatePage(),
-            RestaurantDriversCreatePage(),
+            // RestaurantCategoriesCreatePage(),
+            RestaurantCategoriesListPage(),
+            // RestaurantProductsCreatePage(),
+            RestaurantProductsListPage(),
+            // RestaurantDriversCreatePage(),
+            RestaurantDriversListPage(),
             ClientProfileInfoPage(),
           ],
         ),
@@ -74,7 +80,7 @@ class RestaurantHomePage extends StatelessWidget {
                 activeColor: Colors.white,
                 inactiveColor: Colors.black),
             BottomNavyBarItem(
-                icon: const Icon(Icons.motorcycle_rounded),
+                icon: const Icon(Icons.person_add_alt_1_outlined),
                 title: const Text(
                   'Driver',
                   style: TextStyle(

@@ -15,6 +15,7 @@ class RestaurantCategoriesCreatePage extends StatelessWidget {
         children: [
           _backgroundCover(context),
           _boxForm(context),
+          _buttonBack(),
           Column(
             children: [
               _textNewCategory(context),
@@ -39,11 +40,27 @@ class RestaurantCategoriesCreatePage extends StatelessWidget {
     );
   }
 
+  Widget _buttonBack() {
+    return SafeArea(
+      child: Container(
+        margin: const EdgeInsets.only(left: 15),
+        child: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: 35,
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _boxForm(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.50,
+      height: MediaQuery.of(context).size.height * 0.52,
       margin: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height * 0.32, left: 20, right: 20),
+          top: MediaQuery.of(context).size.height * 0.36, left: 20, right: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
@@ -109,7 +126,7 @@ class RestaurantCategoriesCreatePage extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
       child: ElevatedButton(
         onPressed: () {
-          con.createCategory();
+          con.createCategory(context);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.amber,

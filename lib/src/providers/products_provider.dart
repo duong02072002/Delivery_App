@@ -13,6 +13,34 @@ class ProductsProvider extends GetConnect {
 
   User userSession = User.fromJson(GetStorage().read('user') ?? {});
 
+  Future<void> deleteProduct(String productId) async {
+    String deleteUrl = '$url/delete/$productId';
+    Response response = await delete(
+      deleteUrl,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userSession.sessionToken ?? '',
+      },
+    );
+
+    if (response.statusCode == 401) {
+      Get.snackbar(
+        'Request Denied',
+        'Your User Is Not Allowed To Delete This Product',
+      );
+    } else if (response.statusCode == 200) {
+      Get.snackbar(
+        'Success',
+        'Product Deleted Successfully',
+      );
+    } else {
+      Get.snackbar(
+        'Error',
+        'Failed to Delete Product',
+      );
+    }
+  }
+
   Future<List<Product>> findByCategory(String idCategory) async {
     Response response = await get(
       '$url/findByCategory/$idCategory',
@@ -21,6 +49,28 @@ class ProductsProvider extends GetConnect {
         'Authorization': userSession.sessionToken ?? ''
       },
     ); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
+
+    if (response.statusCode == 401) {
+      Get.snackbar(
+        'Request Denied',
+        'Your User Is Not Allowed To Read This Information',
+      );
+      return [];
+    }
+
+    List<Product> products = Product.fromJsonList(response.body);
+
+    return products;
+  }
+
+  Future<List<Product>> findByName(String name) async {
+    Response response = await get(
+      '$url/findByName/$name',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userSession.sessionToken ?? ''
+      },
+    );
 
     if (response.statusCode == 401) {
       Get.snackbar(
@@ -44,6 +94,28 @@ class ProductsProvider extends GetConnect {
         'Authorization': userSession.sessionToken ?? ''
       },
     ); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
+
+    if (response.statusCode == 401) {
+      Get.snackbar(
+        'Request Denied',
+        'Your User Is Not Allowed To Read This Information',
+      );
+      return [];
+    }
+
+    List<Product> products = Product.fromJsonList(response.body);
+
+    return products;
+  }
+
+  Future<List<Product>> findAllProducts() async {
+    Response response = await get(
+      '$url/findAllProducts',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userSession.sessionToken ?? ''
+      },
+    );
 
     if (response.statusCode == 401) {
       Get.snackbar(

@@ -36,7 +36,7 @@ class RestaurantDriversCreateController extends GetxController {
 
     if (isValidForm(email, name, lastname, phone, password, confirmPassword)) {
       ProgressDialog progressDialog = ProgressDialog(context: context);
-      progressDialog.show(max: 100, msg: 'Recording Data ...');
+      progressDialog.show(max: 100, msg: 'Wait A Minute ...');
 
       User user = User(
         email: email,
@@ -57,8 +57,8 @@ class RestaurantDriversCreateController extends GetxController {
         ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
 
         if (responseApi.success == true) {
-          GetStorage().write(
-              'user', responseApi.data); // DỮ LIỆU NGƯỜI DÙNG TRONG PHIÊN
+          // GetStorage().write(
+          //     'user', responseApi.data); // DỮ LIỆU NGƯỜI DÙNG TRONG PHIÊN
           clearFormFields();
         } else {
           Get.snackbar('Register driver fall', responseApi.message ?? '');
@@ -68,12 +68,14 @@ class RestaurantDriversCreateController extends GetxController {
   }
 
   void clearFormFields() {
+    imageFile = null;
     emailController.text = '';
     nameController.text = '';
     lastnameController.text = '';
     phoneController.text = '';
     passwordController.text = '';
     confirmPasswordController.text = '';
+    update();
   }
 
   bool isValidForm(

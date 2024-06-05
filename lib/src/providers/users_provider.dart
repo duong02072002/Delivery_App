@@ -24,6 +24,26 @@ class UsersProvider extends GetConnect {
     return response;
   }
 
+  Future<ResponseApi> deleteUser(String id) async {
+    Response response = await delete(
+      '$url/delete/$id',
+      headers: {'Authorization': userSession.sessionToken ?? ''},
+    ); // CHỜ ĐẾN KHI MÁY CHỦ TRẢ LẠI CÂU TRẢ LỜI
+
+    if (response.body == null) {
+      Get.snackbar('Error', 'Could Not Delete User');
+      return ResponseApi();
+    }
+
+    if (response.statusCode == 401) {
+      Get.snackbar('Error', 'You Are Not Authorized To Make This Request');
+      return ResponseApi();
+    }
+
+    ResponseApi responseApi = ResponseApi.fromJson(response.body);
+    return responseApi;
+  }
+
   Future<List<User>> findDeliveryMen() async {
     Response response = await get('$url/findDeliveryMen', headers: {
       'Content-Type': 'application/json',
