@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app/src/pages/client/orders/create/client_orders_create_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart'; // Thêm import này
 
 import '../../../../models/product.dart';
 import '../../../../widgets/no_data_widget.dart';
@@ -46,49 +47,9 @@ class ClientOrdersCreatePage extends StatelessWidget {
     );
   }
 
-  // Widget _totalToPay(BuildContext context) {
-  //   return Column(
-  //     children: [
-  //       Divider(
-  //         height: 3,
-  //         thickness: 3,
-  //         color: Colors.grey[300],
-  //         indent: 1,
-  //         endIndent: 1,
-  //       ),
-  //       Container(
-  //         margin: const EdgeInsets.only(left: 15, top: 25),
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: [
-  //             Text(
-  //               'TOTAL: \$${con.total.value}',
-  //               style:
-  //                   const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-  //             ),
-  //             const Spacer(),
-  //             Container(
-  //               margin: const EdgeInsets.symmetric(horizontal: 20),
-  //               child: ElevatedButton(
-  //                   onPressed: () {},
-  //                   //onPressed: () => con.goToAddressList(),
-  //                   style: ElevatedButton.styleFrom(
-  //                       padding: const EdgeInsets.all(14),
-  //                       backgroundColor: Colors.amber),
-  //                   child: const Text(
-  //                     'CHECKOUT',
-  //                     style: TextStyle(
-  //                       color: Colors.black,
-  //                     ),
-  //                   )),
-  //             )
-  //           ],
-  //         ),
-  //       )
-  //     ],
-  //   );
-  // }
   Widget _totalToPay(BuildContext context) {
+    final formatter = NumberFormat("#,##0.00", "en_US"); // Tạo định dạng số
+
     return Column(
       children: [
         Divider(
@@ -105,7 +66,7 @@ class ClientOrdersCreatePage extends StatelessWidget {
                 MainAxisAlignment.spaceBetween, // Sắp xếp phần tử ở hai đầu
             children: [
               Text(
-                '      TOTAL:                                      \$${con.total.value}',
+                '      TOTAL:                                      \$${formatter.format(con.total.value)}', // Định dạng giá trị số
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
@@ -142,6 +103,8 @@ class ClientOrdersCreatePage extends StatelessWidget {
   }
 
   Widget _cardProduct(Product product) {
+    final formatter = NumberFormat("#,##0.00", "en_US"); // Tạo định dạng số
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
@@ -183,10 +146,12 @@ class ClientOrdersCreatePage extends StatelessWidget {
   }
 
   Widget _textPrice(Product product) {
+    final formatter = NumberFormat("#,##0.00", "en_US"); // Tạo định dạng số
+
     return Container(
       margin: const EdgeInsets.only(top: 10),
       child: Text(
-        '\$${product.price! * product.quantity!}',
+        '\$${formatter.format(product.price! * product.quantity!)}', // Định dạng giá trị số
         style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.bold),
       ),
     );

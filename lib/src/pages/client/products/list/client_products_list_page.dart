@@ -4,6 +4,7 @@ import 'package:flutter_delivery_app/src/pages/client/products/list/client_produ
 import 'package:get/get.dart';
 import '../../../../models/product.dart';
 import '../../../../widgets/no_data_widget.dart';
+import 'package:intl/intl.dart';
 
 class ClientProductsListPage extends StatelessWidget {
   final ClientProductsListController con =
@@ -167,6 +168,8 @@ class ClientProductsListPage extends StatelessWidget {
   }
 
   Widget _cardProduct(BuildContext context, Product product) {
+    final formatter = NumberFormat("#,##0.00", "en_US");
+
     return GestureDetector(
       onTap: () {
         con.openBottomSheet(context, product);
@@ -232,12 +235,11 @@ class ClientProductsListPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //const Spacer(),
                   Container(
                     margin:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     child: Text(
-                      '${product.price ?? 0}\$',
+                      '${formatter.format(product.price ?? 0)}\$',
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,

@@ -9,6 +9,7 @@ import '../../../../models/address.dart';
 import '../../../../models/response_api.dart';
 import '../../../../models/user.dart';
 import '../../../../providers/address_provider.dart';
+import '../../stripe/payment/client_stripe_payment.dart';
 import '../list/client_address_list_controller.dart';
 import '../map/client_address_map_page.dart';
 

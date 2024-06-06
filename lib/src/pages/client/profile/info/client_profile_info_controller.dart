@@ -6,7 +6,7 @@ class ClientProfileInfoController extends GetxController {
   var user = User.fromJson(GetStorage().read('user')).obs;
   void signOut() {
     GetStorage().remove('address');
-    GetStorage().remove('shopping_bag');
+    GetStorage().remove('shopping_bag'); // xóa túi khi out
     GetStorage().remove('user');
 
     Get.offNamedUntil('/', (route) => false); // XÓA LỊCH SỬ MÀN HÌNH

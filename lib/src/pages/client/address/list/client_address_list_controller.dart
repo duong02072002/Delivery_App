@@ -68,7 +68,28 @@ class ClientAddressListController extends GetxController {
 //   }
 
   void createOrder(BuildContext context) async {
-    stripePayment.makePayment(context);
+    // Lấy số tiền từ giỏ hàng hoặc tính toán số tiền từ danh sách sản phẩm
+    double totalAmount = calculateTotalAmount();
+    stripePayment.makePayment(context, totalAmount.toString());
+  }
+
+  double calculateTotalAmount() {
+    double totalAmount = 0.0;
+    List<Product> products = [];
+
+    // Lấy danh sách sản phẩm từ giỏ hàng
+    if (GetStorage().read("shopping_bag") is List<Product>) {
+      products = GetStorage().read("shopping_bag");
+    } else {
+      products = Product.fromJsonList(GetStorage().read("shopping_bag"));
+    }
+
+    // Tính tổng số tiền của tất cả sản phẩm trong giỏ hàng
+    for (var product in products) {
+      totalAmount += product.quantity! * product.price!;
+    }
+
+    return totalAmount;
   }
 
   void handleRadioValueChange(int? value) {

@@ -29,6 +29,7 @@ class ClientOrdersCreateController extends GetxController {
     total.value = 0.0;
     for (var product in selectedProducts) {
       total.value = total.value + (product.quantity! * product.price!);
+      update();
     }
   }
 
@@ -44,6 +45,7 @@ class ClientOrdersCreateController extends GetxController {
       for (var p in selectedProducts) {
         productsListController.items.value =
             productsListController.items.value + p.quantity!;
+        update();
       }
     }
   }
@@ -59,6 +61,7 @@ class ClientOrdersCreateController extends GetxController {
     for (var p in selectedProducts) {
       productsListController.items.value =
           productsListController.items.value + p.quantity!;
+      update();
     }
   }
 
@@ -74,6 +77,7 @@ class ClientOrdersCreateController extends GetxController {
       for (var p in selectedProducts) {
         productsListController.items.value =
             productsListController.items.value + p.quantity!;
+        update();
       }
     }
   }

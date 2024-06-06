@@ -1,12 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-
 import '../../../../models/order.dart';
 import '../../../../models/product.dart';
 import '../../../../models/address.dart' as address;
@@ -19,10 +17,10 @@ class ClientStripePayment {
   OrdersProvider ordersProvider = OrdersProvider();
   User user = User.fromJson(GetStorage().read('user') ?? {});
 
-  Future<void> makePayment(BuildContext context) async {
+  Future<void> makePayment(BuildContext context, String totalAmount) async {
     try {
       print('Start making payment...');
-      paymentIntentData = await createPaymentIntent('15', 'USD');
+      paymentIntentData = await createPaymentIntent(totalAmount, 'USD');
       print('Payment Intent created: $paymentIntentData');
 
       await Stripe.instance.initPaymentSheet(
@@ -65,7 +63,6 @@ class ClientStripePayment {
         );
         ResponseApi responseApi = await ordersProvider.create(order);
 
-        //Get.snackbar('finished process', responseApi.message ?? " ");
         Fluttertoast.showToast(
             msg: responseApi.message ?? "", toastLength: Toast.LENGTH_LONG);
         paymentIntentData = null;
@@ -92,8 +89,11 @@ class ClientStripePayment {
       String amount, String currency) async {
     try {
       print('Start creating Payment Intent...');
+      double parsedAmount = parseAmount(amount); // Chuyển đổi chuỗi thành số
       Map<String, dynamic> body = {
-        'amount': calculateAmount(amount),
+        'amount': (parsedAmount * 100)
+            .toInt()
+            .toString(), // Chuyển đổi số thành chuỗi
         'currency': currency,
         'payment_method_types[]': 'card',
       };
@@ -111,6 +111,17 @@ class ClientStripePayment {
     } catch (err) {
       print('Error occurred while creating Payment Intent: $err');
       rethrow;
+    }
+  }
+
+  double parseAmount(String amount) {
+    // Xác định xem chuỗi có phải là số hợp lệ không
+    if (RegExp(r'^\d+(\.\d+)?$').hasMatch(amount)) {
+      // Nếu chuỗi là số hợp lệ, chuyển đổi nó thành số
+      return double.parse(amount);
+    } else {
+      // Nếu chuỗi không phải là số hợp lệ, trả về 0
+      return 0.0;
     }
   }
 

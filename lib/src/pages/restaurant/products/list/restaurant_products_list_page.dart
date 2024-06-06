@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app/src/models/product.dart';
 import 'package:flutter_delivery_app/src/pages/restaurant/products/list/restaurant_products_list_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart'; // Thêm import này
+
 import '../../../../widgets/no_data_widget.dart';
 
 class RestaurantProductsListPage extends StatelessWidget {
@@ -95,6 +97,8 @@ class RestaurantProductsListPage extends StatelessWidget {
   }
 
   Widget _cardProduct(BuildContext context, Product product) {
+    final formatter = NumberFormat("#,##0.00", "en_US"); // Tạo định dạng số
+
     return GestureDetector(
       onTap: () {
         // Hiển thị hộp thoại xác nhận xóa sản phẩm
@@ -148,7 +152,7 @@ class RestaurantProductsListPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        '\$${product.price.toString()}',
+                        '\$${formatter.format(product.price)}', // Định dạng giá trị số
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

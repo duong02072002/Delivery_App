@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app/src/pages/client/products/detail/client_products_detail_controller.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart'; // Thêm import này
 
 import '../../../../models/product.dart';
 
@@ -64,11 +65,13 @@ class ClientProductsDetailPage extends StatelessWidget {
   }
 
   Widget _textPriceProduct() {
+    final formatter = NumberFormat("#,##0.00", "en_US"); // Tạo định dạng số
+
     return Container(
       alignment: Alignment.centerLeft,
       margin: const EdgeInsets.only(top: 10, left: 20, right: 30),
       child: Text(
-        '\$${product?.price.toString() ?? ''}',
+        '\$${formatter.format(product?.price ?? 0)}', // Định dạng giá trị số
         style: const TextStyle(
           fontSize: 20,
           color: Colors.black,
@@ -79,6 +82,8 @@ class ClientProductsDetailPage extends StatelessWidget {
   }
 
   Widget _buttonsAddToBag() {
+    final formatter = NumberFormat("#,##0.00", "en_US"); // Tạo định dạng số
+
     return Column(
       children: [
         Divider(
@@ -155,7 +160,7 @@ class ClientProductsDetailPage extends StatelessWidget {
                   height: 50, // Chiều cao tùy chỉnh
                   child: Center(
                     child: Text(
-                      'Add To Cart  \$${price.value}',
+                      'Add To Cart  \$${formatter.format(price.value)}', // Định dạng giá trị số
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 17,

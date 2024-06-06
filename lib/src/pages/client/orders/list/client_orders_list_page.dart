@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery_app/src/pages/client/orders/list/client_orders_list_controller.dart';
-import 'package:flutter_delivery_app/src/pages/delivery/orders/list/delivery_orders_list_controller.dart';
-import 'package:flutter_delivery_app/src/pages/restaurant/orders/list/restaurant_orders_list_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/order.dart';
