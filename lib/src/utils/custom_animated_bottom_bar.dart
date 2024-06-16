@@ -101,7 +101,7 @@ class _ItemWidget extends StatelessWidget {
       container: true,
       selected: isSelected,
       child: AnimatedContainer(
-        width: isSelected ? 130 : 50,
+        width: isSelected ? 120 : 50,
         height: double.maxFinite,
         duration: animationDuration,
         curve: curve,

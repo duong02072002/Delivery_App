@@ -28,7 +28,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'src/pages/client/payments/create/client_payments_create_page.dart';
+import 'src/pages/restaurant/statistics/create/restaurant_statistics_create_page.dart.dart';
 
 User userSession = User.fromJson(GetStorage().read('user') ?? {});
 // PushNotificationsProvider pushNotificationsProvider =
@@ -85,6 +85,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: 'Delivery APP',
       debugShowCheckedModeBanner: false,
+      //initialRoute: '/client/statistics/create',
       initialRoute: userSession.id != null
           ? userSession.roles!.length > 1
               ? '/roles'
@@ -145,8 +146,8 @@ class _MyAppState extends State<MyApp> {
         GetPage(
             name: '/client/address/list', page: () => ClientAddressListPage()),
         GetPage(
-            name: '/client/payments/create',
-            page: () => const ClientPaymentsCreatePage()),
+            name: '/restaurant/statistics/create',
+            page: () => RestaurantStatisticsCreatePage()),
       ],
       theme: ThemeData(
         primaryColor: Colors.amber,

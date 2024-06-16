@@ -23,7 +23,8 @@ class RestaurantDriversListPage extends StatelessWidget {
                 direction: Axis.horizontal,
                 children: [
                   _listDriversTitle(),
-                  const SizedBox(width: 200),
+                  const SizedBox(width: 150),
+                  _iconStatistics(),
                   _iconAdd(),
                 ],
               ),
@@ -67,6 +68,18 @@ class RestaurantDriversListPage extends StatelessWidget {
       onPressed: () => con.goToCreateCategories(),
       icon: const Icon(
         Icons.add,
+        color: Colors.white,
+        size: 40,
+      ),
+    );
+  }
+
+  Widget _iconStatistics() {
+    return IconButton(
+      padding: const EdgeInsets.only(top: 65),
+      onPressed: () => con.goToStatistics(),
+      icon: const Icon(
+        Icons.bar_chart,
         color: Colors.white,
         size: 40,
       ),

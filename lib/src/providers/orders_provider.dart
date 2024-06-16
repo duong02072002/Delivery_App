@@ -134,4 +134,32 @@ class OrdersProvider extends GetConnect {
 
     return responseApi;
   }
+
+  Future<Map<String, dynamic>> getTotalSales() async {
+    try {
+      Response response = await get('$url/totalSales', headers: {
+        'Content-Type': 'application/json',
+        'Authorization': userSession.sessionToken ?? ''
+      });
+
+      if (response.statusCode == 401) {
+        Get.snackbar(
+          'Request Denied',
+          'Your User Is Not Allowed To Read This Information',
+        );
+        return {'totalQuantitySold': 0, 'totalSalesAmount': 0};
+      }
+
+      Map<String, dynamic> totalSales = {
+        'totalQuantitySold': response.body['total_quantity_sold'],
+        'totalSalesAmount': response.body['total_sales_amount']
+      };
+
+      return totalSales;
+    } catch (e) {
+      // Handle error, if any
+      print('Failed to fetch total sales: $e');
+      return {'totalQuantitySold': 0, 'totalSalesAmount': 0};
+    }
+  }
 }

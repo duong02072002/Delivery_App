@@ -69,9 +69,9 @@ class ClientProductsListController extends GetxController {
     }
   }
 
-  void goToOrderCreate() {
-    Get.toNamed('/client/orders/create');
-  }
+  // void goToOrderCreate() {
+  //   Get.toNamed('/client/orders/create');
+  // }
 
   void openBottomSheet(BuildContext context, Product product) async {
     showMaterialModalBottomSheet(

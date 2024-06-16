@@ -67,7 +67,7 @@ class ClientProductsListPage extends StatelessWidget {
                                 top: 12, left: 5, right: 5),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2, childAspectRatio: 0.75),
+                                    crossAxisCount: 2, childAspectRatio: 0.72),
                             itemCount: snapshot.data?.length ?? 0,
                             itemBuilder: (_, index) {
                               return _cardProduct(
@@ -95,7 +95,8 @@ class ClientProductsListPage extends StatelessWidget {
             ? Stack(
                 children: [
                   IconButton(
-                      onPressed: () => con.goToOrderCreate(),
+                      // onPressed: () => con.goToOrderCreate(),
+                      onPressed: () {},
                       icon: const Icon(
                         Icons.shopping_bag_outlined,
                         size: 33,
@@ -120,7 +121,8 @@ class ClientProductsListPage extends StatelessWidget {
                 ],
               )
             : IconButton(
-                onPressed: () => con.goToOrderCreate(),
+                onPressed: () {},
+                //onPressed: () => con.goToOrderCreate(),
                 icon: const Icon(
                   Icons.shopping_bag_outlined,
                   size: 30,
@@ -175,7 +177,7 @@ class ClientProductsListPage extends StatelessWidget {
         con.openBottomSheet(context, product);
       },
       child: SizedBox(
-        height: 250,
+        height: 260,
         child: Card(
           elevation: 3.0,
           color: Colors.white,
@@ -204,7 +206,7 @@ class ClientProductsListPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 150,
+                    height: 165,
                     margin: const EdgeInsets.only(top: 20),
                     width: MediaQuery.of(context).size.width * 0.45,
                     padding: const EdgeInsets.all(20),

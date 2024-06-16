@@ -73,9 +73,9 @@ class ClientOrdersCreatePage extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 16),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 40),
+          margin: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             children: [
               Expanded(

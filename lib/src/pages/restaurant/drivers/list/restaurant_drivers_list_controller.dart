@@ -37,6 +37,11 @@ class RestaurantDriversListController extends GetxController {
     update();
   }
 
+  void goToStatistics() async {
+    await Get.toNamed('/restaurant/statistics/create');
+    update();
+  }
+
   void deleteUser(String userId) {
     usersProvider.deleteUser(userId).then((response) {
       if (response.success != null) {

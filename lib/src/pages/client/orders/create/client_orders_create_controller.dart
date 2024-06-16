@@ -5,7 +5,7 @@ import '../../../../models/product.dart';
 import '../../products/list/client_products_list_controller.dart';
 
 class ClientOrdersCreateController extends GetxController {
-  List<Product> selectedProducts = <Product>[].obs;
+  List<Product> selectedProducts = <Product>[];
   var total = 0.0.obs;
   ClientProductsListController productsListController = Get.find();
 
@@ -23,14 +23,15 @@ class ClientOrdersCreateController extends GetxController {
 
       getTotal();
     }
+    update();
   }
 
   void getTotal() {
     total.value = 0.0;
     for (var product in selectedProducts) {
       total.value = total.value + (product.quantity! * product.price!);
-      update();
     }
+    update();
   }
 
   void deleteItem(Product product) {
@@ -45,9 +46,9 @@ class ClientOrdersCreateController extends GetxController {
       for (var p in selectedProducts) {
         productsListController.items.value =
             productsListController.items.value + p.quantity!;
-        update();
       }
     }
+    update();
   }
 
   void addItem(Product product) {
@@ -61,7 +62,6 @@ class ClientOrdersCreateController extends GetxController {
     for (var p in selectedProducts) {
       productsListController.items.value =
           productsListController.items.value + p.quantity!;
-      update();
     }
   }
 
@@ -77,12 +77,21 @@ class ClientOrdersCreateController extends GetxController {
       for (var p in selectedProducts) {
         productsListController.items.value =
             productsListController.items.value + p.quantity!;
-        update();
       }
     }
+    update();
   }
 
   void goToAddressList() {
-    Get.toNamed('/client/address/list');
+    if (selectedProducts.isNotEmpty) {
+      Get.toNamed('/client/address/list');
+    } else {
+      Get.snackbar(
+        'No Products Added',
+        'Please add products to your shopping bag before proceeding to checkout.',
+        snackPosition: SnackPosition.TOP,
+        duration: const Duration(seconds: 2),
+      );
+    }
   }
 }
