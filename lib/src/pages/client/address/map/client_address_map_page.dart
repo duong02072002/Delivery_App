@@ -4,54 +4,66 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ClientAddressMapPage extends StatelessWidget {
-  ClientAddressMapController con = Get.put(ClientAddressMapController());
+  final ClientAddressMapController con = Get.put(ClientAddressMapController());
 
   ClientAddressMapPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(42),
-            child: AppBar(
-              backgroundColor: Colors.amber,
-              iconTheme: const IconThemeData(color: Colors.black),
-              title: const Text(
-                'Locate Your Address',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(42),
+        child: AppBar(
+          backgroundColor: Colors.amber,
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: const Text(
+            'Locate Your Address',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          body: Stack(
-            children: [
-              _googleMaps(),
-              _iconMyLocation(),
-              _cardAddress(),
-              _buttonAccept(context)
-            ],
-          ),
-        ));
+        ),
+      ),
+      body: Stack(
+        children: [
+          _googleMaps(),
+          _iconMyLocation(),
+          _cardAddress(),
+          _buttonAccept(context),
+        ],
+      ),
+    );
   }
 
   Widget _buttonAccept(BuildContext context) {
-    return Container(
-      alignment: Alignment.bottomCenter,
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 30),
+    return Positioned(
+      bottom: 20,
+      left: 20,
+      right: 55,
       child: ElevatedButton(
         onPressed: () => con.selectRefPoint(context),
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.amber,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+          backgroundColor: Colors.amber,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 15),
+        ),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'SELECT THIS POINT',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.2,
+                fontFamily: 'NimbusSans',
+              ),
             ),
-            padding: const EdgeInsets.all(15)),
-        child: const Text(
-          'SELECT THIS POINT',
-          style: TextStyle(color: Colors.black),
+          ],
         ),
       ),
     );
@@ -61,7 +73,7 @@ class ClientAddressMapPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       alignment: Alignment.topCenter,
-      margin: const EdgeInsets.symmetric(vertical: 30),
+      margin: const EdgeInsets.symmetric(vertical: 50),
       child: Card(
         color: Colors.grey[800],
         shape: RoundedRectangleBorder(
@@ -69,12 +81,14 @@ class ClientAddressMapPage extends StatelessWidget {
         ),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Text(
-            con.addressName.value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+          child: Obx(
+            () => Text(
+              con.addressName.value,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -99,15 +113,15 @@ class ClientAddressMapPage extends StatelessWidget {
     return GoogleMap(
       initialCameraPosition: con.initialPosition,
       mapType: MapType.normal,
+      myLocationButtonEnabled: true, // Cho phép hiển thị nút "My Location"
+      myLocationEnabled: true, // Cho phép hiển thị điểm vị trí hiện tại
+      zoomControlsEnabled: true, // Tắt nút điều chỉnh zoom mặc định
       onMapCreated: con.onMapCreate,
-      myLocationButtonEnabled: false,
-      myLocationEnabled: false,
-      onCameraMove: (position) {
+      onCameraMove: (CameraPosition position) {
         con.initialPosition = position;
       },
       onCameraIdle: () async {
-        await con
-            .setLocationDraggableInfo(); // BẮT ĐẦU ĐẠT VỊ TRÍ TRUNG TÂM BẢN ĐỒ
+        await con.setLocationDraggableInfo();
       },
     );
   }

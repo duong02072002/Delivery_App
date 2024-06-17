@@ -12,7 +12,7 @@ class DeliveryOrdersMapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DeliveryOrdersMapController>(
         builder: (value) => Scaffold(
-              backgroundColor: Colors.grey[900],
+              backgroundColor: Colors.grey[100],
               body: Stack(
                 children: [
                   SizedBox(
@@ -47,7 +47,7 @@ class DeliveryOrdersMapPage extends StatelessWidget {
         onPressed: () => Get.back(),
         icon: const Icon(
           Icons.arrow_back_ios,
-          color: Colors.white,
+          color: Colors.black,
           size: 30,
         ),
       ),
@@ -61,8 +61,8 @@ class DeliveryOrdersMapPage extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.grey[900],
           borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
+            topRight: Radius.circular(33),
+            topLeft: Radius.circular(33),
           ),
           boxShadow: [
             BoxShadow(
@@ -198,7 +198,7 @@ class DeliveryOrdersMapPage extends StatelessWidget {
       initialCameraPosition: con.initialPosition,
       mapType: MapType.normal,
       onMapCreated: con.onMapCreate,
-      myLocationButtonEnabled: false,
+      myLocationButtonEnabled: true,
       myLocationEnabled: false,
       markers: Set<Marker>.of(con.markers.values),
       polylines: con.polylines,

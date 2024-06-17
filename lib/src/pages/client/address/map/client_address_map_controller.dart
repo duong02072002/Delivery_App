@@ -8,8 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 
 class ClientAddressMapController extends GetxController {
-  CameraPosition initialPosition = const CameraPosition(
-      target: LatLng(9.6782775, 105.6658409), zoom: 14.4746);
+  CameraPosition initialPosition =
+      const CameraPosition(target: LatLng(10.8231, 106.6297), zoom: 14.4746);
 
   LatLng? addressLatLng;
   var addressName = ''.obs;
@@ -17,24 +17,42 @@ class ClientAddressMapController extends GetxController {
   Completer<GoogleMapController> mapController = Completer();
   Position? position;
 
-  ClientAddressMapController() {
+  @override
+  void onInit() {
+    super.onInit();
     checkGPS(); // KIỂM TRA GPS CÓ HOẠT ĐỘNG KHÔNG
   }
 
-  Future setLocationDraggableInfo() async {
+  Future<void> setLocationDraggableInfo() async {
     double lat = initialPosition.target.latitude;
     double lng = initialPosition.target.longitude;
 
-    List<Placemark> address = await placemarkFromCoordinates(lat, lng);
+    List<Placemark> placemarks = await placemarkFromCoordinates(lat, lng);
 
-    if (address.isNotEmpty) {
-      String direction = address[0].thoroughfare ?? '';
-      String street = address[0].subThoroughfare ?? '';
-      String city = address[0].locality ?? '';
-      String department = address[0].administrativeArea ?? '';
-      String country = address[0].country ?? '';
-      addressName.value = '$direction #$street, $city, $department';
+    if (placemarks.isNotEmpty) {
+      Placemark placemark = placemarks[0];
+
+      String thoroughfare = placemark.thoroughfare ?? '';
+      String subThoroughfare = placemark.subThoroughfare ?? '';
+      String locality = placemark.locality ?? '';
+      String subLocality = placemark.subLocality ?? '';
+      String administrativeArea = placemark.administrativeArea ?? '';
+      String country = placemark.country ?? '';
+
+      // Extract district (quận) if available
+      String district = placemark.subAdministrativeArea ?? '';
+
+      // Build the complete address string
+      String address = '${thoroughfare.isNotEmpty ? '$thoroughfare, ' : ''}'
+          '${subThoroughfare.isNotEmpty ? '#$subThoroughfare, ' : ''}'
+          '${district.isNotEmpty ? '$district, ' : ''}'
+          '${subLocality.isNotEmpty ? '$subLocality, ' : ''}'
+          '$locality, $administrativeArea';
+
+      // Update observable variable
+      addressName.value = address;
       addressLatLng = LatLng(lat, lng);
+
       print(
           'LAT AND LNG: ${addressLatLng?.latitude ?? 0} ${addressLatLng?.longitude ?? 0}');
     }
@@ -70,7 +88,7 @@ class ClientAddressMapController extends GetxController {
       position =
           await Geolocator.getLastKnownPosition(); // LAT AND LNG (ACTUAL)
       animateCameraPosition(
-          position?.latitude ?? 9.779349, position?.longitude ?? 105.6189045);
+          position?.latitude ?? 10.8231, position?.longitude ?? 106.6297);
     } catch (e) {
       print('Error: $e');
     }
@@ -79,7 +97,7 @@ class ClientAddressMapController extends GetxController {
   Future animateCameraPosition(double lat, double lng) async {
     GoogleMapController controller = await mapController.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat, lng), zoom: 13, bearing: 0)));
+        CameraPosition(target: LatLng(lat, lng), zoom: 25, bearing: 0)));
   }
 
   Future<Position> _determinePosition() async {
@@ -107,9 +125,24 @@ class ClientAddressMapController extends GetxController {
     return await Geolocator.getCurrentPosition();
   }
 
-  void onMapCreate(GoogleMapController controller) {
-    // controller.setMapStyle(
-    //     '[{"elementType":"geometry","stylers":[{"color":"#212121"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#212121"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#757575"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"administrative.land_parcel","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#181818"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"poi.park","elementType":"labels.text.stroke","stylers":[{"color":"#1b1b1b"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#2c2c2c"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#8a8a8a"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#373737"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#3c3c3c"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"color":"#4e4e4e"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"transit","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#3d3d3d"}]}]');
+  void onMapCreate(GoogleMapController controller) async {
     mapController.complete(controller);
+    await _setMapStyle(controller);
+  }
+
+  Future<void> _setMapStyle(GoogleMapController controller) async {
+    try {
+      String mapStyle = await DefaultAssetBundle.of(Get.context!)
+          .loadString('assets/map_style.json');
+      controller.setMapStyle(mapStyle);
+    } catch (e) {
+      print("Failed to set map style: $e");
+    }
+  }
+
+  void animateCameraToCurrentLocation() {
+    if (position != null) {
+      animateCameraPosition(position!.latitude, position!.longitude);
+    }
   }
 }

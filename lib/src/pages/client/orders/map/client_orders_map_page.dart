@@ -12,7 +12,7 @@ class ClientOrdersMapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<ClientOrdersMapController>(
         builder: (value) => Scaffold(
-              backgroundColor: Colors.grey[900],
+              backgroundColor: Colors.grey[100],
               body: Stack(
                 children: [
                   SizedBox(
@@ -47,7 +47,7 @@ class ClientOrdersMapPage extends StatelessWidget {
         onPressed: () => Get.back(),
         icon: const Icon(
           Icons.arrow_back_ios,
-          color: Colors.white,
+          color: Colors.black,
           size: 30,
         ),
       ),
@@ -61,8 +61,8 @@ class ClientOrdersMapPage extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.grey[900],
           borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
+            topRight: Radius.circular(33),
+            topLeft: Radius.circular(33),
           ),
           boxShadow: [
             BoxShadow(

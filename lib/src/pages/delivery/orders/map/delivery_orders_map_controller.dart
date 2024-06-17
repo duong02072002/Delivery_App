@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -10,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:socket_io_client/socket_io_client.dart';
-
 import '../../../../environment/environment.dart';
 import '../../../../models/order.dart';
 import '../../../../models/response_api.dart';
@@ -25,8 +23,8 @@ class DeliveryOrdersMapController extends GetxController {
   Order order = Order.fromJson(Get.arguments['order'] ?? {});
   OrdersProvider ordersProvider = OrdersProvider();
 
-  CameraPosition initialPosition = const CameraPosition(
-      target: LatLng(9.6782775, 105.6658409), zoom: 14.4746);
+  CameraPosition initialPosition =
+      const CameraPosition(target: LatLng(10.8231, 106.6297), zoom: 14.4746);
 
   LatLng? addressLatLng;
   var addressName = ''.obs;
@@ -60,7 +58,7 @@ class DeliveryOrdersMapController extends GetxController {
 
       print('distanceBetween $distanceBetween');
 
-      if (distanceBetween <= 200 && isClose == false) {
+      if (distanceBetween <= 20 && isClose == false) {
         isClose = true;
         update();
       }
@@ -170,7 +168,7 @@ class DeliveryOrdersMapController extends GetxController {
   }
 
   void updateToDelivered() async {
-    if (distanceBetween <= 200) {
+    if (distanceBetween <= 20) {
       ResponseApi responseApi = await ordersProvider.updateToDelivered(order);
       Fluttertoast.showToast(
           msg: responseApi.message ?? '', toastLength: Toast.LENGTH_LONG);
@@ -190,27 +188,22 @@ class DeliveryOrdersMapController extends GetxController {
       position = await Geolocator.getLastKnownPosition(); // LAT Y LNG (ACTUAL)
       saveLocation();
       animateCameraPosition(
-          position?.latitude ?? 9.6782775, position?.longitude ?? 105.6658409);
+          position?.latitude ?? 10.8231, position?.longitude ?? 106.6297);
 
       addMarker(
           'delivery',
-          position?.latitude ?? 9.6782775,
-          position?.longitude ?? 105.6658409,
+          position?.latitude ?? 10.8231,
+          position?.longitude ?? 106.6297,
           'Your position',
           '',
           deliveryMarker!);
 
-      addMarker(
-          'home',
-          order.address?.lat ?? 9.6782775,
-          order.address?.lng ?? 105.6658409,
-          'Place of delivery',
-          '',
-          homeMarker!);
+      addMarker('home', order.address?.lat ?? 10.8231,
+          order.address?.lng ?? 106.6297, 'Place of delivery', '', homeMarker!);
 
       LatLng from = LatLng(position!.latitude, position!.longitude);
-      LatLng to = LatLng(
-          order.address?.lat ?? 9.6782775, order.address?.lng ?? 105.6658409);
+      LatLng to =
+          LatLng(order.address?.lat ?? 10.8231, order.address?.lng ?? 106.6297);
 
       setPolylines(from, to);
 
@@ -224,13 +217,13 @@ class DeliveryOrdersMapController extends GetxController {
         position = pos;
         addMarker(
             'delivery',
-            position?.latitude ?? 9.6782775,
-            position?.longitude ?? 105.6658409,
+            position?.latitude ?? 10.8231,
+            position?.longitude ?? 106.6297,
             'Your position',
             '',
             deliveryMarker!);
-        animateCameraPosition(position?.latitude ?? 9.6782775,
-            position?.longitude ?? 105.6658409);
+        animateCameraPosition(
+            position?.latitude ?? 10.8231, position?.longitude ?? 106.6297);
         emitPosition();
         isCloseToDeliveryPosition();
       });
@@ -261,7 +254,7 @@ class DeliveryOrdersMapController extends GetxController {
   Future animateCameraPosition(double lat, double lng) async {
     GoogleMapController controller = await mapController.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat, lng), zoom: 14, bearing: 0)));
+        CameraPosition(target: LatLng(lat, lng), zoom: 16, bearing: 0)));
   }
 
   Future<Position> _determinePosition() async {
@@ -290,8 +283,6 @@ class DeliveryOrdersMapController extends GetxController {
   }
 
   void onMapCreate(GoogleMapController controller) {
-    // controller.setMapStyle(
-    //     '[{"elementType":"geometry","stylers":[{"color":"#212121"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#212121"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#757575"}]},{"featureType":"administrative.country","elementType":"labels.text.fill","stylers":[{"color":"#9e9e9e"}]},{"featureType":"administrative.land_parcel","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#bdbdbd"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#181818"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"poi.park","elementType":"labels.text.stroke","stylers":[{"color":"#1b1b1b"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#2c2c2c"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#8a8a8a"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#373737"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#3c3c3c"}]},{"featureType":"road.highway.controlled_access","elementType":"geometry","stylers":[{"color":"#4e4e4e"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#616161"}]},{"featureType":"transit","elementType":"labels.text.fill","stylers":[{"color":"#757575"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#3d3d3d"}]}]');
     mapController.complete(controller);
   }
 

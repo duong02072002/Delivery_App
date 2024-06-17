@@ -62,23 +62,28 @@ class ClientProductsDetailController extends GetxController {
     }
   }
 
-  void updateItemCount() {
-    productsListController.items.value =
-        selectedProducts.fold(0, (sum, p) => sum + p.quantity!);
-    update();
-  }
+  // void addItem(Product product, var price, var counter) {
+  //   counter.value++;
+  //   price.value = product.price! * counter.value;
+  //   update();
+  // }
 
+  // void removeItem(Product product, var price, var counter) {
+  //   if (counter.value > 0) {
+  //     counter.value--;
+  //     price.value = product.price! * counter.value;
+  //     update();
+  //   }
+  // }
   void addItem(Product product, var price, var counter) {
-    counter.value++;
+    counter.value = counter.value + 1;
     price.value = product.price! * counter.value;
-    update();
   }
 
   void removeItem(Product product, var price, var counter) {
     if (counter.value > 0) {
-      counter.value--;
+      counter.value = counter.value - 1;
       price.value = product.price! * counter.value;
-      update();
     }
   }
 }

@@ -24,8 +24,8 @@ class ClientOrdersMapController extends GetxController {
   Order order = Order.fromJson(Get.arguments['order'] ?? {});
   OrdersProvider ordersProvider = OrdersProvider();
 
-  CameraPosition initialPosition = const CameraPosition(
-      target: LatLng(9.6782775, 105.6658409), zoom: 14.4746);
+  CameraPosition initialPosition =
+      const CameraPosition(target: LatLng(10.8231, 106.6297), zoom: 14.4746);
 
   LatLng? addressLatLng;
   var addressName = ''.obs;
@@ -205,8 +205,8 @@ class ClientOrdersMapController extends GetxController {
 
         addMarker(
           'home',
-          order.address?.lat ?? 9.6782775,
-          order.address?.lng ?? 105.6658409,
+          order.address?.lat ?? 10.8231,
+          order.address?.lng ?? 106.6297,
           'Place of delivery',
           '',
           homeMarker!,
@@ -215,7 +215,7 @@ class ClientOrdersMapController extends GetxController {
         LatLng from = LatLng(
             order.lat ?? position!.latitude, order.lng ?? position!.longitude);
         LatLng to = LatLng(
-            order.address?.lat ?? 9.6782775, order.address?.lng ?? 105.6658409);
+            order.address?.lat ?? 10.8231, order.address?.lng ?? 106.6297);
 
         setPolylines(from, to);
       }
@@ -238,7 +238,7 @@ class ClientOrdersMapController extends GetxController {
   Future animateCameraPosition(double lat, double lng) async {
     GoogleMapController controller = await mapController.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat, lng), zoom: 13, bearing: 0)));
+        CameraPosition(target: LatLng(lat, lng), zoom: 16, bearing: 0)));
   }
 
   Future<Position> _determinePosition() async {

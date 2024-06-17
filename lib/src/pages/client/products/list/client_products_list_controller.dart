@@ -33,7 +33,6 @@ class ClientProductsListController extends GetxController {
         selectedProducts =
             Product.fromJsonList(GetStorage().read('shopping_bag'));
       }
-
       for (var p in selectedProducts) {
         items.value = items.value + (p.quantity!);
       }
